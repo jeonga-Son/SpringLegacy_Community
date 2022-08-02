@@ -1,13 +1,9 @@
 package com.ll.exam.article;
 
-import com.ll.exam.ResultData;
 import com.ll.exam.Rq;
 import com.ll.exam.article.dto.ArticleDto;
-import com.ll.exam.util.Ut;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ArticleController {
     private ArticleService articleService;
@@ -98,7 +94,18 @@ public class ArticleController {
     }
 
     public void getArticles(Rq rq) {
-        List<ArticleDto> articleDtos = articleService.findAll();
+
+        long fromId = rq.getLongParam("fromId", -1);
+
+        List<ArticleDto> articleDtos = null;
+
+        //입력 안됐으면 다 보여주고
+        if (fromId == -1) {
+            articleDtos = articleService.findAll();
+        }
+        else {
+            articleDtos = articleService.findIdGreaterThan(fromId);
+        }
 
         rq.successJson(articleDtos);
     }
