@@ -72,6 +72,16 @@ public class ChatMessageRepository {
 
         datum.remove(chatMessageDto);
     }
+
+    public void modifyMessage(long id, String body) {
+        ChatMessageDto chatMessageDto = findById(id);
+
+        if ( chatMessageDto == null ) {
+            return;
+        }
+
+        chatMessageDto.setBody(body);
+    }
 }
 
 
