@@ -14,7 +14,7 @@ function ChatMessageSave__submitForm(form) {
 
     //fetch방식이 아닌, jquery 방식
     $.post(
-        '/usr/chat/writeMessageAjax/${room.id}' //주소, action
+        '/usr/chat/writeMessageAjax/${room.id}', //주소, action
         {
             body: form.body.value //폼 내용
         },
@@ -44,6 +44,7 @@ function ChatMessages__loadMore() {
                         <span>메세지 \${message.id} :</span>
                         &nbsp;
                         <span>\${message.body}</a>
+                        &nbsp;
                         <a onclick="if ( !confirm('정말로 삭제하시겠습니까?') ) return false;" class="hover:underline hover:text-[red] mr-2" href="/usr/chat/deleteMessage/\${message.id}?_method=DELETE">삭제</a>
                     </li>
                 `;
