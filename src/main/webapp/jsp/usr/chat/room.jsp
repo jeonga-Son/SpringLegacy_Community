@@ -34,18 +34,16 @@ function ChatMessageSave__submitForm(form) {
 let ChatMessages__lastId = 0;
 
 function ChatMessages__remove(id) {
-    $.post(
-            `/usr/chat/deleteMessageAjax/\${id}`, //주소, action
-            {
-                _method: "DELETE"
+    $.ajax ({
+        url: `/usr/chat/deleteMessageAjax/\${id}`,
+        type: 'DELETE',
+        success: function(data) {
+               if (data.msg) {
+                    alert(data.msg);
+               }
             },
-            function(data) {
-                if (data.msg) {
-                    alert(data.msg)
-                }
-            },
-            'json' //받은 데이터를 json으로 해석하겠다.
-        );
+            dataType: 'json'
+    });
 }
 
 function ChatMessages__loadMore() {
@@ -59,9 +57,9 @@ function ChatMessages__loadMore() {
                     <li class="flex">
                         <span>메세지 \${message.id} :</span>
                         &nbsp;
-                        <span>\${message.body}</a>
+                        <span>\${message.body}</span>
                         &nbsp;
-                        <a onclick="if ( confirm('정말로 삭제하시겠습니까?') ) ChatMessages__remove(\${message.id}); return false;" class="cursor-pointer hover:underline hover:text-[red] mr-2" >삭제</a>
+                        <a onclick="if ( confirm('정말로 삭제하시겠습니까?') ) ChatMessages__remove(\${message.id}); return false;" class="cursor-pointer hover:underline hover:text-[red] mr-2">삭제</a>
                     </li>
                 `;
                 $('.chat-messages').append(html);
@@ -74,35 +72,26 @@ function ChatMessages__loadMore() {
         });
 }
 </script>
-
 <section>
     <div class="container px-3 mx-auto">
         <h1 class="font-bold text-lg">채팅방</h1>
-
         <div>
             ${room.title}
         </div>
-
         <div>
             ${room.body}
         </div>
-
-
         <form onsubmit="ChatMessageSave__submitForm(this); return false;" method="POST" action="/usr/chat/writeMessage/${room.id}">
             <input autofocus name="body" type="text" placeholder="메세지를 입력해주세요." class="input input-bordered" />
             <button type="submit" value="" class="btn btn-outline btn-primary">
                 작성
             </button>
         </form>
-
         <ul class="chat-messages mt-5">
-
-                </ul>
-            </div>
-        </section>
-
-        <script>
-        ChatMessages__loadMore();
-        </script>
-
-        <%@ include file="../common/foot.jspf"%>
+        </ul>
+    </div>
+</section>
+<script>
+ChatMessages__loadMore();
+</script>
+<%@ include file="../common/foot.jspf"%>
