@@ -10,11 +10,17 @@ public class ArticleController {
     public ArticleController() {
         articleService = new ArticleService();
     }
+
     public void showList(Rq rq) {
         List<ArticleDto> articleDtos = articleService.findAll();
         rq.setAttr("articles", articleDtos);
         rq.view("usr/article/list");
     }
+
+    public void showListAuto(Rq rq) {
+        rq.view("usr/article/listAuto");
+    }
+
     public void showWrite(Rq rq) {
         rq.view("usr/article/write");
     }
@@ -109,4 +115,6 @@ public class ArticleController {
 
         rq.successJson(articleDtos);
     }
+
+
 }
