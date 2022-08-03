@@ -1,7 +1,6 @@
 package com.ll.exam.chat;
 
 import com.ll.exam.Rq;
-import com.ll.exam.article.dto.ArticleDto;
 import com.ll.exam.chat.dto.ChatMessageDto;
 import com.ll.exam.chat.dto.ChatRoomDto;
 
@@ -14,7 +13,7 @@ public class ChatController {
     public void showCreateRoom(Rq rq) {
         rq.view("usr/chat/createRoom");
     }
-    public void doCreateRoom(Rq rq) {
+    public void CreateRoom(Rq rq) {
         String title = rq.getParam("title", "");
         String body = rq.getParam("body", "");
         if (title.length() == 0) {
@@ -47,7 +46,7 @@ public class ChatController {
         rq.setAttr("room", chatRoom);
         rq.view("usr/chat/modifyRoom");
     }
-    public void doModifyRoom(Rq rq) {
+    public void ModifyRoom(Rq rq) {
         long id = rq.getLongPathValueByIndex(0, -1);
         if (id == -1) {
             rq.historyBack("번호를 입력해주세요.");
@@ -129,7 +128,7 @@ public class ChatController {
         rq.view("usr/chat/roomManual");
     }
 
-    public void doWriteMessage(Rq rq) {
+    public void WriteMessage(Rq rq) {
         long roomId = rq.getLongPathValueByIndex(0, -1);
         if (roomId == -1) {
             rq.historyBack("채팅방 번호를 입력해주세요.");
@@ -150,7 +149,7 @@ public class ChatController {
     }
 
     //Ajax는 historyBack 말고 failJson으로
-    public void doWriteMessageAjax(Rq rq) {
+    public void WriteMessageAjax(Rq rq) {
         long roomId = rq.getLongPathValueByIndex(0, -1);
         if (roomId == -1) {
             rq.failJson("채팅방 번호를 입력해주세요.");

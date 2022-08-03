@@ -24,7 +24,7 @@ public class ArticleController {
     public void showWrite(Rq rq) {
         rq.view("usr/article/write");
     }
-    public void doWrite(Rq rq) {
+    public void Write(Rq rq) {
         String title = rq.getParam("title", "");
         String body = rq.getParam("body", "");
         if (title.length() == 0) {
@@ -52,7 +52,7 @@ public class ArticleController {
         rq.setAttr("article", articleDto);
         rq.view("usr/article/detail");
     }
-    public void doDelete(Rq rq) {
+    public void Delete(Rq rq) {
         long id = rq.getLongPathValueByIndex(1, 0);
         if (id == 0) {
             rq.historyBack("번호를 입력해주세요.");
@@ -80,7 +80,7 @@ public class ArticleController {
         rq.setAttr("article", articleDto);
         rq.view("usr/article/modify");
     }
-    public void doModify(Rq rq) {
+    public void Modify(Rq rq) {
         long id = rq.getLongPathValueByIndex(1, 0);
         if (id == 0) {
             rq.historyBack("번호를 입력해주세요.");
